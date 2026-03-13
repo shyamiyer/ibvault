@@ -8,71 +8,123 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0a0a0a;
-      --surface: #111111;
-      --border: #1e1e1e;
-      --border2: #2a2a2a;
-      --text: #f0f0f0;
-      --muted: #555555;
-      --muted2: #888888;
+      --bg: #0a0a0a; --surface: #111; --border: #1e1e1e; --border2: #2a2a2a;
+      --text: #f0f0f0; --muted: #555; --muted2: #888;
     }
     body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
-    #homePage { display: block; }
-    #subjectPage { display: none; }
 
+    /* ── PAGES ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── HOME ── */
     .home-header { text-align: center; padding: 4rem 2rem 3rem; }
-    .home-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.6rem; letter-spacing: -0.04em; color: var(--text); margin-bottom: 0.5rem; }
-    .home-subtitle { font-size: 0.78rem; color: var(--muted2); font-weight: 300; letter-spacing: 0.1em; text-transform: uppercase; }
-
+    .home-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.6rem; letter-spacing: -0.04em; margin-bottom: .5rem; }
+    .home-subtitle { font-size: .78rem; color: var(--muted2); font-weight: 300; letter-spacing: .1em; text-transform: uppercase; }
     .subjects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; max-width: 900px; margin: 0 auto; padding: 0 2rem 4rem; border-top: 1px solid var(--border); }
-    .subject-card { background: var(--bg); border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); padding: 1.8rem 1.6rem; cursor: pointer; transition: background 0.2s; position: relative; }
+    .subject-card { background: var(--bg); border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); padding: 1.8rem 1.6rem; cursor: pointer; transition: background .2s; position: relative; }
     .subject-card:hover { background: var(--surface); }
-    .subject-card.disabled { cursor: default; opacity: 0.3; }
+    .subject-card.disabled { cursor: default; opacity: .3; }
     .subject-card.disabled:hover { background: var(--bg); }
-    .card-num { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 1rem; }
-    .card-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--text); letter-spacing: -0.01em; margin-bottom: 0.4rem; }
-    .card-meta { font-size: 0.72rem; color: var(--muted2); font-weight: 300; }
-    .card-arrow { position: absolute; top: 1.8rem; right: 1.6rem; font-size: 0.9rem; color: var(--muted); transition: transform 0.2s, color 0.2s; }
+    .card-num { font-size: .65rem; color: var(--muted); letter-spacing: .08em; margin-bottom: 1rem; }
+    .card-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: -.01em; margin-bottom: .4rem; }
+    .card-meta { font-size: .72rem; color: var(--muted2); font-weight: 300; }
+    .card-arrow { position: absolute; top: 1.8rem; right: 1.6rem; font-size: .9rem; color: var(--muted); transition: transform .2s, color .2s; }
     .subject-card:not(.disabled):hover .card-arrow { transform: translate(3px,-3px); color: var(--text); }
 
+    /* ── SUBJECT PAGE ── */
     .subject-header { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem 0; display: flex; align-items: center; gap: 1.5rem; }
-    .back-btn { font-size: 0.8rem; color: var(--muted2); cursor: pointer; background: none; border: none; font-family: 'DM Sans', sans-serif; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; padding: 0; flex-shrink: 0; }
+    .back-btn { font-size: .8rem; color: var(--muted2); cursor: pointer; background: none; border: none; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: .4rem; transition: color .2s; padding: 0; flex-shrink: 0; }
     .back-btn:hover { color: var(--text); }
     .subject-title-wrap { flex: 1; }
-    .subject-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; }
-    .subject-subtitle { font-size: 0.72rem; color: var(--muted2); margin-top: 0.2rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .subject-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: -.02em; }
+    .subject-subtitle { font-size: .72rem; color: var(--muted2); margin-top: .2rem; letter-spacing: .05em; text-transform: uppercase; }
 
+    /* mode toggle */
+    .mode-toggle { display: flex; gap: 0; border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+    .mode-btn { padding: .45rem 1rem; font-size: .78rem; font-family: 'DM Sans', sans-serif; background: none; border: none; color: var(--muted2); cursor: pointer; transition: all .2s; letter-spacing: .02em; }
+    .mode-btn.active { background: var(--surface); color: var(--text); }
+
+    /* search mode */
     .search-wrap { max-width: 860px; margin: 2rem auto 0; padding: 0 2rem; }
     .search-box { position: relative; }
     .search-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
-    .search-input { width: 100%; background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 0.85rem 1rem 0.85rem 2.8rem; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 300; outline: none; transition: border-color 0.2s; }
+    .search-input { width: 100%; background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: .85rem 1rem .85rem 2.8rem; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: .95rem; font-weight: 300; outline: none; transition: border-color .2s; }
     .search-input:focus { border-color: #3a3a3a; }
     .search-input::placeholder { color: var(--muted); }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
-    .chip { padding: 0.35rem 0.85rem; background: var(--surface); border: 1px solid var(--border2); border-radius: 20px; font-size: 0.73rem; color: var(--muted2); cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
+    .chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
+    .chip { padding: .35rem .85rem; background: var(--surface); border: 1px solid var(--border2); border-radius: 20px; font-size: .73rem; color: var(--muted2); cursor: pointer; transition: all .15s; font-family: 'DM Sans', sans-serif; }
     .chip:hover { color: var(--text); border-color: #444; }
-
     .results-wrap { max-width: 860px; margin: 1.5rem auto 4rem; padding: 0 2rem; }
-    .results-meta { font-size: 0.73rem; color: var(--muted); margin-bottom: 1rem; letter-spacing: 0.03em; }
+    .results-meta { font-size: .73rem; color: var(--muted); margin-bottom: 1rem; }
     .cards { display: grid; gap: 1px; border-top: 1px solid var(--border); }
-    .card { background: var(--bg); border-bottom: 1px solid var(--border); padding: 1.2rem 0; }
-    .card-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--text); letter-spacing: -0.01em; margin-bottom: 0.45rem; }
-    .card-def { font-size: 0.855rem; color: #999; line-height: 1.65; font-weight: 300; }
-    .card-diagram { margin-top: 0.8rem; background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 6px; padding: 0.5rem; }
-    .diagram-label { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; }
-    .empty { text-align: center; padding: 4rem 0; color: var(--muted); font-size: 0.875rem; }
+    .result-card { background: var(--bg); border-bottom: 1px solid var(--border); padding: 1.2rem 0; }
+    .result-card-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: .95rem; color: var(--text); letter-spacing: -.01em; margin-bottom: .45rem; }
+    .result-card-def { font-size: .855rem; color: #999; line-height: 1.65; font-weight: 300; }
+    .result-card-diagram { margin-top: .8rem; background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 6px; padding: .5rem; }
+    .diagram-label { font-size: .65rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-bottom: .3rem; }
+    .empty { text-align: center; padding: 4rem 0; color: var(--muted); font-size: .875rem; }
+
+    /* ── FLASHCARD MODE ── */
+    .flashcard-wrap { max-width: 860px; margin: 0 auto; padding: 0 2rem 4rem; }
+    
+    .fc-controls { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 0 1rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+    .fc-progress { font-size: .75rem; color: var(--muted2); letter-spacing: .05em; }
+    .fc-progress strong { color: var(--text); font-weight: 600; }
+    .fc-bar-wrap { width: 160px; height: 2px; background: var(--border2); border-radius: 2px; margin-top: .4rem; }
+    .fc-bar { height: 100%; background: var(--text); border-radius: 2px; transition: width .3s; }
+    .fc-shuffle-btn { font-size: .75rem; color: var(--muted2); background: none; border: 1px solid var(--border2); border-radius: 6px; padding: .4rem .8rem; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s; }
+    .fc-shuffle-btn:hover { color: var(--text); border-color: #444; }
+
+    /* the card itself */
+    .fc-scene { perspective: 1200px; width: 100%; max-width: 600px; margin: 0 auto; height: 320px; cursor: pointer; }
+    .fc-card { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform .5s cubic-bezier(.4,0,.2,1); }
+    .fc-card.flipped { transform: rotateY(180deg); }
+    .fc-face { position: absolute; inset: 0; backface-visibility: hidden; border: 1px solid var(--border2); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2.5rem; text-align: center; }
+    .fc-front { background: var(--surface); }
+    .fc-back { background: #0e0e0e; transform: rotateY(180deg); }
+    .fc-label { font-size: .65rem; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .fc-term { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.4rem; letter-spacing: -.02em; line-height: 1.3; color: var(--text); }
+    .fc-def { font-size: .875rem; color: #aaa; line-height: 1.7; font-weight: 300; max-height: 200px; overflow-y: auto; }
+    .fc-hint { font-size: .72rem; color: var(--muted); margin-top: 1.5rem; }
+
+    /* nav buttons */
+    .fc-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2rem; }
+    .fc-nav-btn { width: 48px; height: 48px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border2); color: var(--text); font-size: 1.1rem; cursor: pointer; transition: all .2s; display: flex; align-items: center; justify-content: center; }
+    .fc-nav-btn:hover { background: #1a1a1a; border-color: #444; }
+    .fc-nav-btn:disabled { opacity: .25; cursor: default; }
+    .fc-flip-btn { width: auto; padding: 0 1.5rem; border-radius: 24px; font-size: .8rem; font-family: 'DM Sans', sans-serif; letter-spacing: .04em; }
+
+    /* rating buttons */
+    .fc-rating { display: flex; gap: .6rem; justify-content: center; margin-top: 1.2rem; opacity: 0; transition: opacity .3s; pointer-events: none; }
+    .fc-rating.visible { opacity: 1; pointer-events: auto; }
+    .fc-rate-btn { padding: .4rem 1rem; border-radius: 20px; border: 1px solid; font-size: .75rem; font-family: 'DM Sans', sans-serif; cursor: pointer; background: none; transition: all .2s; }
+    .fc-rate-btn.hard { color: #e07070; border-color: #e07070; }
+    .fc-rate-btn.hard:hover { background: rgba(224,112,112,.1); }
+    .fc-rate-btn.ok { color: var(--muted2); border-color: var(--border2); }
+    .fc-rate-btn.ok:hover { background: var(--surface); color: var(--text); }
+    .fc-rate-btn.easy { color: #70c070; border-color: #70c070; }
+    .fc-rate-btn.easy:hover { background: rgba(112,192,112,.1); }
+
+    /* done screen */
+    .fc-done { text-align: center; padding: 4rem 0; }
+    .fc-done h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: .8rem; }
+    .fc-done p { color: var(--muted2); font-size: .875rem; margin-bottom: 2rem; }
+    .fc-restart-btn { padding: .6rem 1.5rem; border: 1px solid var(--border2); border-radius: 8px; background: none; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: .85rem; cursor: pointer; transition: all .2s; }
+    .fc-restart-btn:hover { background: var(--surface); }
   </style>
 </head>
 <body>
 
-<div id="homePage">
+<!-- HOME PAGE -->
+<div id="homePage" class="page active">
   <div class="home-header">
     <div class="home-logo">IBVault</div>
     <div class="home-subtitle">IB subjects — definitions, concepts &amp; diagrams</div>
   </div>
   <div class="subjects-grid">
     <div class="subject-card" onclick="openSubject('econ')"><div class="card-num">01</div><div class="card-name">Economics</div><div class="card-meta">197 terms + diagrams</div><span class="card-arrow">↗</span></div>
-    <div class="subject-card" onclick="openSubject('bio')"><div class="card-num">02</div><div class="card-name">Biology</div><div class="card-meta">357 terms</div><span class="card-arrow">↗</span></div>
+    <div class="subject-card" onclick="openSubject('bio')"><div class="card-num">02</div><div class="card-name">Biology</div><div class="card-meta">357 terms + flashcards</div><span class="card-arrow">↗</span></div>
     <div class="subject-card disabled"><div class="card-num">03</div><div class="card-name">Physics</div><div class="card-meta">Coming soon</div></div>
     <div class="subject-card disabled"><div class="card-num">04</div><div class="card-name">Chemistry</div><div class="card-meta">Coming soon</div></div>
     <div class="subject-card disabled"><div class="card-num">05</div><div class="card-name">Psychology</div><div class="card-meta">Coming soon</div></div>
@@ -83,29 +135,84 @@
   </div>
 </div>
 
-<div id="subjectPage">
+<!-- SUBJECT PAGE -->
+<div id="subjectPage" class="page">
   <div class="subject-header">
     <button class="back-btn" onclick="goHome()">← All subjects</button>
     <div class="subject-title-wrap">
       <div class="subject-title" id="subjectTitle"></div>
       <div class="subject-subtitle" id="subjectSubtitle"></div>
     </div>
-  </div>
-  <div class="search-wrap">
-    <div class="search-box">
-      <span class="search-icon">⌕</span>
-      <input type="text" class="search-input" id="searchInput" placeholder="Search terms and concepts…" autocomplete="off">
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="searchModeBtn" onclick="setMode('search')">Search</button>
+      <button class="mode-btn" id="flashModeBtn" onclick="setMode('flash')">Flashcards</button>
     </div>
-    <div class="chips" id="chipsContainer"></div>
   </div>
-  <div class="results-wrap">
-    <div class="results-meta" id="resultsMeta"></div>
-    <div class="cards" id="cardsContainer"></div>
+
+  <!-- SEARCH MODE -->
+  <div id="searchMode">
+    <div class="search-wrap">
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search terms and concepts…" autocomplete="off">
+      </div>
+      <div class="chips" id="chipsContainer"></div>
+    </div>
+    <div class="results-wrap">
+      <div class="results-meta" id="resultsMeta"></div>
+      <div class="cards" id="cardsContainer"></div>
+    </div>
+  </div>
+
+  <!-- FLASHCARD MODE -->
+  <div id="flashMode" style="display:none">
+    <div class="flashcard-wrap">
+      <div class="fc-controls">
+        <div class="fc-progress">
+          <span>Card <strong id="fcCurrent">1</strong> of <strong id="fcTotal">0</strong></span>
+          <div class="fc-bar-wrap"><div class="fc-bar" id="fcBar" style="width:0%"></div></div>
+        </div>
+        <button class="fc-shuffle-btn" onclick="shuffleCards()">⇄ Shuffle</button>
+      </div>
+
+      <div id="fcDoneScreen" class="fc-done" style="display:none">
+        <h2>All done! 🎉</h2>
+        <p id="fcDoneStats"></p>
+        <button class="fc-restart-btn" onclick="restartCards()">Start over</button>
+      </div>
+
+      <div id="fcCardArea">
+        <div class="fc-scene" onclick="flipCard()">
+          <div class="fc-card" id="fcCard">
+            <div class="fc-face fc-front">
+              <div class="fc-label">Term</div>
+              <div class="fc-term" id="fcTerm"></div>
+              <div class="fc-hint">tap to reveal definition</div>
+            </div>
+            <div class="fc-face fc-back">
+              <div class="fc-label">Definition</div>
+              <div class="fc-def" id="fcDef"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fc-rating" id="fcRating">
+          <button class="fc-rate-btn hard" onclick="rateCard('hard')">Hard</button>
+          <button class="fc-rate-btn ok" onclick="rateCard('ok')">Got it</button>
+          <button class="fc-rate-btn easy" onclick="rateCard('easy')">Easy</button>
+        </div>
+
+        <div class="fc-nav">
+          <button class="fc-nav-btn" id="fcPrev" onclick="prevCard()">←</button>
+          <button class="fc-nav-btn fc-flip-btn" onclick="flipCard()">Flip</button>
+          <button class="fc-nav-btn" id="fcNext" onclick="nextCard()">→</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-
 const diagrams = {
 
 "Supply and demand": `<svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:360px;display:block;margin:.8rem auto">
@@ -688,7 +795,6 @@ const diagrams = {
 
 };
 
-
 const econTerms = [
 { title: "Abnormal profit", def: "When a firm's average revenue is greater than its average costs." },
   { title: "Absolute Advantage", def: "The ability to produce the same quantity of a good or service using fewer resources per unit of time." },
@@ -1250,40 +1356,54 @@ const bioTerms = [
 ];
 
 const subjects = {
-  econ: {
-    name: 'Economics',
-    terms: econTerms,
-    suggestions: ['Scarcity', 'Market Failure', 'Externality', 'Monopoly', 'Inflation', 'Subsidy', 'Tariff', 'GDP', 'Opportunity cost']
-  },
-  bio: {
-    name: 'Biology',
-    terms: bioTerms,
-    suggestions: ['Photosynthesis', 'Mitosis', 'DNA Replication', 'Natural selection', 'Osmosis', 'ATP', 'Homeostasis', 'Evolution', 'Meiosis']
-  }
+  econ: { name: 'Economics', terms: econTerms, suggestions: ['Scarcity','Market Failure','Externality','Monopoly','Inflation','Subsidy','Tariff','GDP','Opportunity cost'] },
+  bio:  { name: 'Biology',   terms: bioTerms,  suggestions: ['Photosynthesis','Mitosis','DNA Replication','Natural selection','Osmosis','ATP','Homeostasis','Evolution','Meiosis'] }
 };
 
 let currentSubject = null;
+let currentMode = 'search';
+
+// ── flashcard state ──
+let fcDeck = [];
+let fcIndex = 0;
+let fcIsFlipped = false;
+let fcRatings = {};  // index -> 'hard'|'ok'|'easy'
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
 function openSubject(key) {
   currentSubject = key;
   const s = subjects[key];
-  document.getElementById('homePage').style.display = 'none';
-  document.getElementById('subjectPage').style.display = 'block';
   document.getElementById('subjectTitle').textContent = s.name;
   document.getElementById('subjectSubtitle').textContent = s.terms.length + ' terms';
   document.getElementById('searchInput').value = '';
   document.getElementById('resultsMeta').textContent = '';
   document.getElementById('cardsContainer').innerHTML = '';
   renderChips(s.suggestions);
-  document.getElementById('searchInput').focus();
+  // show/hide flashcard tab only for bio
+  document.getElementById('flashModeBtn').style.display = key === 'bio' ? '' : 'none';
+  setMode('search');
+  showPage('subjectPage');
 }
 
 function goHome() {
-  document.getElementById('subjectPage').style.display = 'none';
-  document.getElementById('homePage').style.display = 'block';
+  showPage('homePage');
   currentSubject = null;
 }
 
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('searchModeBtn').classList.toggle('active', mode === 'search');
+  document.getElementById('flashModeBtn').classList.toggle('active', mode === 'flash');
+  document.getElementById('searchMode').style.display = mode === 'search' ? '' : 'none';
+  document.getElementById('flashMode').style.display = mode === 'flash' ? '' : 'none';
+  if (mode === 'flash') initFlashcards();
+}
+
+// ── SEARCH ──
 function renderChips(suggestions) {
   document.getElementById('chipsContainer').innerHTML = suggestions.map(s =>
     `<button class="chip" onclick="setSearch('${s}')">${s}</button>`
@@ -1296,7 +1416,8 @@ function setSearch(value) {
 }
 
 function getDiagram(title) {
-  const key = Object.keys(diagrams).find(k => title.toLowerCase().includes(k.toLowerCase()) || k.toLowerCase().includes(title.toLowerCase()));
+  const diagKeys = Object.keys(diagrams);
+  const key = diagKeys.find(k => title.toLowerCase().includes(k.toLowerCase()) || k.toLowerCase().includes(title.toLowerCase()));
   return key ? diagrams[key] : null;
 }
 
@@ -1310,18 +1431,102 @@ function doSearch() {
   const lower = q.toLowerCase();
   const results = terms.filter(t => t.title.toLowerCase().includes(lower) || t.def.toLowerCase().includes(lower));
   meta.textContent = `${results.length} result${results.length !== 1 ? 's' : ''} for "${q}"`;
-  if (!results.length) {
-    cards.innerHTML = `<div class="empty">No terms found for "<strong>${q}</strong>"</div>`;
-    return;
-  }
+  if (!results.length) { cards.innerHTML = `<div class="empty">No terms found for "<strong>${q}</strong>"</div>`; return; }
   cards.innerHTML = results.map(t => {
     const diag = currentSubject === 'econ' ? getDiagram(t.title) : null;
-    const diagHtml = diag ? `<div class="card-diagram"><div class="diagram-label">Diagram</div>${diag}</div>` : '';
-    return `<div class="card"><div class="card-title">${t.title}</div><div class="card-def">${t.def}</div>${diagHtml}</div>`;
+    const diagHtml = diag ? `<div class="result-card-diagram"><div class="diagram-label">Diagram</div>${diag}</div>` : '';
+    return `<div class="result-card"><div class="result-card-title">${t.title}</div><div class="result-card-def">${t.def}</div>${diagHtml}</div>`;
   }).join('');
 }
 
 document.getElementById('searchInput').addEventListener('input', doSearch);
+
+// ── FLASHCARDS ──
+function initFlashcards() {
+  if (!currentSubject) return;
+  fcDeck = [...subjects[currentSubject].terms];
+  fcIndex = 0;
+  fcIsFlipped = false;
+  fcRatings = {};
+  document.getElementById('fcTotal').textContent = fcDeck.length;
+  document.getElementById('fcDoneScreen').style.display = 'none';
+  document.getElementById('fcCardArea').style.display = '';
+  showCard();
+}
+
+function showCard() {
+  if (fcIndex >= fcDeck.length) { showDone(); return; }
+  const t = fcDeck[fcIndex];
+  document.getElementById('fcTerm').textContent = t.title;
+  document.getElementById('fcDef').textContent = t.def;
+  document.getElementById('fcCurrent').textContent = fcIndex + 1;
+  document.getElementById('fcBar').style.width = ((fcIndex / fcDeck.length) * 100) + '%';
+  // reset flip
+  const card = document.getElementById('fcCard');
+  card.classList.remove('flipped');
+  fcIsFlipped = false;
+  document.getElementById('fcRating').classList.remove('visible');
+  // nav buttons
+  document.getElementById('fcPrev').disabled = fcIndex === 0;
+  document.getElementById('fcNext').disabled = fcIndex >= fcDeck.length - 1;
+}
+
+function flipCard() {
+  fcIsFlipped = !fcIsFlipped;
+  document.getElementById('fcCard').classList.toggle('flipped', fcIsFlipped);
+  if (fcIsFlipped) document.getElementById('fcRating').classList.add('visible');
+  else document.getElementById('fcRating').classList.remove('visible');
+}
+
+function rateCard(rating) {
+  fcRatings[fcIndex] = rating;
+  nextCard();
+}
+
+function nextCard() {
+  if (fcIndex < fcDeck.length - 1) { fcIndex++; showCard(); }
+  else { showDone(); }
+}
+
+function prevCard() {
+  if (fcIndex > 0) { fcIndex--; showCard(); }
+}
+
+function shuffleCards() {
+  // Fisher-Yates
+  for (let i = fcDeck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [fcDeck[i], fcDeck[j]] = [fcDeck[j], fcDeck[i]];
+  }
+  fcIndex = 0;
+  fcRatings = {};
+  showCard();
+}
+
+function showDone() {
+  document.getElementById('fcDoneScreen').style.display = '';
+  document.getElementById('fcCardArea').style.display = 'none';
+  const total = Object.keys(fcRatings).length;
+  const easy = Object.values(fcRatings).filter(r => r === 'easy').length;
+  const hard = Object.values(fcRatings).filter(r => r === 'hard').length;
+  document.getElementById('fcDoneStats').textContent =
+    total > 0 ? `${easy} easy · ${total - easy - hard} ok · ${hard} to review` : 'Nice work going through all the cards!';
+}
+
+function restartCards() {
+  initFlashcards();
+}
+
+// keyboard shortcuts
+document.addEventListener('keydown', e => {
+  if (currentMode !== 'flash') return;
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flipCard(); }
+  if (e.key === 'ArrowRight') nextCard();
+  if (e.key === 'ArrowLeft') prevCard();
+  if (e.key === '1') rateCard('hard');
+  if (e.key === '2') rateCard('ok');
+  if (e.key === '3') rateCard('easy');
+});
 </script>
 </body>
 </html>
