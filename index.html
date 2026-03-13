@@ -8,52 +8,128 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0a0a0a; --surface: #111111; --surface2: #1a1a1a;
+      --bg: #0a0a0a; --surface: #111111;
       --border: #222222; --text: #f0f0f0; --muted: #666666;
-      --accent: #e8e0d0; --hl: #c8b89a; --sl: #7a9cb8;
+      --accent: #f0f0f0;
     }
     body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; }
-    header { padding: 2.5rem 2rem 0; max-width: 860px; margin: 0 auto; }
-    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.6rem; letter-spacing: -0.02em; color: var(--text); }
-    .logo span { color: var(--hl); }
-    .subtitle { font-size: 0.8rem; color: var(--muted); font-weight: 300; margin-top: 0.2rem; letter-spacing: 0.05em; text-transform: uppercase; }
-    .tabs { display: flex; gap: 0.25rem; margin: 2rem auto 0; max-width: 860px; padding: 0 2rem; border-bottom: 1px solid var(--border); }
-    .tab { padding: 0.6rem 1.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 400; color: var(--muted); background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color 0.2s, border-color 0.2s; letter-spacing: 0.02em; }
+
+    header {
+      padding: 3rem 2rem 0;
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2.2rem;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+    .subtitle {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 0.35rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.25rem;
+      margin: 2rem auto 0;
+      max-width: 860px;
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .tab {
+      padding: 0.6rem 1.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+      letter-spacing: 0.02em;
+    }
     .tab:hover { color: var(--text); }
-    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-    .tab.soon { opacity: 0.35; cursor: default; }
+    .tab.active { color: var(--text); border-bottom-color: var(--text); }
+    .tab.soon { opacity: 0.3; cursor: default; }
+
     .search-wrap { max-width: 860px; margin: 2rem auto 0; padding: 0 2rem; }
     .search-box { position: relative; display: flex; align-items: center; }
     .search-icon { position: absolute; left: 1rem; color: var(--muted); font-size: 1rem; pointer-events: none; }
-    .search-input { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.85rem 1rem 0.85rem 2.8rem; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 300; outline: none; transition: border-color 0.2s; }
+    .search-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem 0.85rem 2.8rem;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+    }
     .search-input:focus { border-color: #333; }
     .search-input::placeholder { color: var(--muted); }
+
     .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
-    .chip { padding: 0.35rem 0.8rem; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; font-size: 0.75rem; color: var(--muted); cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+    .chip {
+      padding: 0.35rem 0.8rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
     .chip:hover { color: var(--text); border-color: #333; }
+
     .results-wrap { max-width: 860px; margin: 1.5rem auto 4rem; padding: 0 2rem; }
     .results-meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 1rem; letter-spacing: 0.03em; }
     .cards { display: grid; gap: 0.75rem; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.4rem; transition: border-color 0.2s; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.4rem;
+      transition: border-color 0.2s;
+    }
     .card:hover { border-color: #2a2a2a; }
-    .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 0.6rem; }
-    .card-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1rem; color: var(--text); letter-spacing: -0.01em; }
-    .badges { display: flex; gap: 0.35rem; flex-shrink: 0; margin-top: 0.1rem; }
-    .badge { padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
-    .badge-hl { background: rgba(200,184,154,0.12); color: var(--hl); border: 1px solid rgba(200,184,154,0.25); }
-    .badge-sl { background: rgba(122,156,184,0.12); color: var(--sl); border: 1px solid rgba(122,156,184,0.25); }
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.6rem;
+    }
     .card-def { font-size: 0.875rem; color: #aaaaaa; line-height: 1.6; font-weight: 300; }
+
     .empty { text-align: center; padding: 4rem 0; color: var(--muted); font-size: 0.9rem; }
     .coming-soon { text-align: center; padding: 5rem 0; color: var(--muted); }
     .coming-soon h2 { font-family: 'Syne', sans-serif; font-size: 1.2rem; color: #333; margin-bottom: 0.5rem; }
+
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
   </style>
 </head>
 <body>
+
 <header>
-  <div class="logo">IB<span>Vault</span></div>
-  <div class="subtitle">Economics &amp; Biology · Definitions &amp; Concepts</div>
+  <div class="logo">IBVault</div>
+  <div class="subtitle">IB subjects definitions, concepts and diagrams</div>
 </header>
 
 <div class="tabs">
@@ -68,7 +144,7 @@
   <div class="search-wrap">
     <div class="search-box">
       <span class="search-icon">⌕</span>
-      <input type="text" class="search-input" id="econSearch" placeholder="Search economics terms, diagrams, concepts…" autocomplete="off">
+      <input type="text" class="search-input" id="econSearch" placeholder="Search economics terms, concepts…" autocomplete="off">
     </div>
     <div class="chips" id="econChips"></div>
   </div>
@@ -82,7 +158,7 @@
   <div class="search-wrap">
     <div class="search-box">
       <span class="search-icon">⌕</span>
-      <input type="text" class="search-input" id="bioSearch" placeholder="Search biology terms, diagrams, concepts…" autocomplete="off">
+      <input type="text" class="search-input" id="bioSearch" placeholder="Search biology terms, concepts…" autocomplete="off">
     </div>
     <div class="chips" id="bioChips"></div>
   </div>
@@ -99,196 +175,203 @@
 
 <script>
 const econTerms = [
-  { title: "Abnormal profit", hl: true, sl: true, def: "When a firm's average revenue is greater than its average costs." },
-  { title: "Absolute Advantage", hl: true, sl: true, def: "The ability to produce the same quantity of a good or service using fewer resources per unit of time." },
-  { title: "Absolute poverty", hl: true, sl: true, def: "The inability to afford the basic goods and services required to satisfy the most basic human needs." },
-  { title: "Allocative efficiency", hl: true, sl: true, def: "A situation where resources are distributed such that they satisfy consumer needs and wants at minimum cost. It occurs when price equals marginal cost (P = MC)." },
-  { title: "Appreciation", hl: true, sl: true, def: "An increase in the value of a currency in a floating exchange rate system." },
-  { title: "Asymmetric information", hl: true, sl: true, def: "When buyers and sellers in a market have access to different information, which can lead to market failure." },
-  { title: "Average cost", hl: true, sl: true, def: "Total cost divided by the quantity of output produced (AC = TC/Q)." },
-  { title: "Average fixed cost", hl: true, sl: true, def: "Fixed costs divided by the quantity of output (AFC = TFC/Q). AFC always falls as output rises." },
-  { title: "Average revenue", hl: true, sl: true, def: "Total revenue divided by quantity sold (AR = TR/Q). AR is equal to the price in all market structures." },
-  { title: "Average variable cost", hl: true, sl: true, def: "Variable costs divided by the quantity of output (AVC = TVC/Q)." },
-  { title: "Balance of payments", hl: true, sl: true, def: "A record of all financial transactions between the residents of a country and the rest of the world over a period of time." },
-  { title: "Balance of trade in goods", hl: true, sl: true, def: "The difference between the value of a country's exports of goods and its imports of goods." },
-  { title: "Balance of trade in services", hl: true, sl: true, def: "The difference between the value of a country's exports of services and its imports of services." },
-  { title: "Barriers to entry", hl: true, sl: true, def: "Obstacles that make it difficult or impossible for new firms to enter a market, such as high startup costs, patents, or government regulation." },
-  { title: "Bilateral aid", hl: true, sl: true, def: "Aid given directly from one country to another country." },
-  { title: "Bimodal income distribution", hl: true, sl: false, def: "An income distribution with two peaks, suggesting a polarised society with a large gap between rich and poor." },
-  { title: "Bond", hl: true, sl: true, def: "A financial instrument issued by governments or firms to raise funds. The buyer lends money to the issuer in exchange for regular interest payments and repayment of the principal at maturity." },
-  { title: "Budget deficit", hl: true, sl: true, def: "When government expenditure exceeds government revenue over a given time period." },
-  { title: "Budget surplus", hl: true, sl: true, def: "When government revenue exceeds government expenditure over a given time period." },
-  { title: "Capital account", hl: true, sl: true, def: "A component of the balance of payments that records transfers of capital, such as debt forgiveness and migrants' transfers." },
-  { title: "Capital flight", hl: true, sl: false, def: "The rapid outflow of money and assets from a country due to political or economic instability." },
-  { title: "Capital goods", hl: true, sl: true, def: "Manufactured goods that are used to produce other goods and services, such as machinery and equipment." },
-  { title: "Cartel", hl: true, sl: true, def: "A formal agreement between firms in an oligopoly to collude and act as a monopoly, fixing prices and/or output to maximise joint profits." },
-  { title: "Central bank", hl: true, sl: true, def: "A national institution responsible for regulating the money supply, setting interest rates and overseeing the banking system." },
-  { title: "Circular flow of income", hl: true, sl: true, def: "A model that shows how money flows between households and firms in an economy through product markets and factor markets." },
-  { title: "Collusion", hl: true, sl: true, def: "An agreement (formal or informal) between firms in an oligopoly to cooperate, for example by fixing prices or dividing markets." },
-  { title: "Commodity", hl: true, sl: true, def: "A raw material or primary product that can be bought or sold, such as gold, oil, or wheat." },
-  { title: "Comparative advantage", hl: true, sl: true, def: "The ability of a country to produce a good or service at a lower opportunity cost than other countries." },
-  { title: "Complementary goods", hl: true, sl: true, def: "Goods that are consumed together. An increase in the price of one leads to a fall in demand for the complementary good." },
-  { title: "Consumer price index (CPI)", hl: true, sl: true, def: "A measure of inflation that tracks changes in the weighted average price of a basket of consumer goods and services over time." },
-  { title: "Consumer surplus", hl: true, sl: true, def: "The difference between the maximum price consumers are willing to pay and the price they actually pay. It is the area below the demand curve and above the market price." },
-  { title: "Consumption", hl: true, sl: true, def: "Total spending on goods and services by households in an economy." },
-  { title: "Contractionary fiscal policy", hl: true, sl: true, def: "Government policy involving a reduction in government spending or an increase in taxes to reduce aggregate demand." },
-  { title: "Contractionary monetary policy", hl: true, sl: true, def: "Central bank policy involving raising interest rates or reducing the money supply to reduce aggregate demand and inflation." },
-  { title: "Cost-push inflation", hl: true, sl: true, def: "A rise in the general price level caused by an increase in the costs of production, such as higher wages or raw material prices, leading to a leftward shift of the SRAS curve." },
-  { title: "Cross-price elasticity of demand (XED)", hl: true, sl: true, def: "A measure of the responsiveness of demand for one good to a change in the price of another. XED = % change in Qd of good A / % change in price of good B." },
-  { title: "Crowding out", hl: true, sl: true, def: "When increased government borrowing raises interest rates, reducing private sector investment spending." },
-  { title: "Current account", hl: true, sl: true, def: "A component of the balance of payments that records trade in goods and services, income flows and current transfers between a country and the rest of the world." },
-  { title: "Current account deficit", hl: true, sl: true, def: "When the value of a country's imports of goods and services plus outflows of income exceeds its exports and inflows." },
-  { title: "Current account surplus", hl: true, sl: true, def: "When the value of a country's exports of goods and services plus inflows exceeds its imports and outflows." },
-  { title: "Customs union", hl: true, sl: true, def: "A trade bloc where member countries remove trade barriers with each other and adopt a common external tariff on imports from non-member countries." },
-  { title: "Cyclical unemployment", hl: true, sl: true, def: "Unemployment caused by a fall in aggregate demand during a recession. Also known as demand-deficient unemployment." },
-  { title: "Deadweight loss", hl: true, sl: true, def: "A loss of economic efficiency that occurs when equilibrium is not achieved, such as under monopoly or taxation. It represents the decrease in total welfare." },
-  { title: "Debt relief", hl: true, sl: false, def: "The reduction or cancellation of debt owed by developing countries, often negotiated to free up resources for development." },
-  { title: "Deflation", hl: true, sl: true, def: "A sustained decrease in the general price level of goods and services." },
-  { title: "Demand-pull inflation", hl: true, sl: true, def: "A rise in the general price level caused by an increase in aggregate demand in the economy." },
-  { title: "Demerit good", hl: true, sl: true, def: "A good that is over-consumed because individuals do not consider the full social costs. It has negative externalities and may be subject to government intervention." },
-  { title: "Depreciation", hl: true, sl: true, def: "A decrease in the value of a currency in a floating exchange rate system." },
-  { title: "Devaluation", hl: true, sl: true, def: "A reduction in the value of a currency in a fixed exchange rate system, implemented by the government or central bank." },
-  { title: "Development", hl: true, sl: true, def: "A process of improving the economic, social and political wellbeing of a country and its people." },
-  { title: "Diminishing marginal returns", hl: true, sl: true, def: "As more units of a variable factor are added to a fixed factor, output will eventually increase at a diminishing rate." },
-  { title: "Direct taxes", hl: true, sl: true, def: "Taxes levied directly on income, profits or wealth, such as income tax or corporation tax." },
-  { title: "Diseconomies of scale", hl: true, sl: true, def: "A situation where long-run average costs increase as a firm expands its output." },
-  { title: "Disinflation", hl: true, sl: true, def: "A reduction in the rate of inflation (but still positive)." },
-  { title: "Disposable income", hl: true, sl: true, def: "Income remaining after direct taxes have been deducted and state benefits have been added." },
-  { title: "Dumping", hl: true, sl: true, def: "When a country exports a product at a price below its domestic price or cost of production, often to drive competitors out of a foreign market." },
-  { title: "Economic growth", hl: true, sl: true, def: "An increase in the real output of goods and services in an economy over time, usually measured as a percentage change in real GDP." },
-  { title: "Economies of scale", hl: true, sl: true, def: "A reduction in long-run average costs as a firm increases its scale of production." },
-  { title: "Equity", hl: true, sl: true, def: "Fairness in the distribution of income and wealth among individuals in an economy." },
-  { title: "Exchange rate", hl: true, sl: true, def: "The price at which one currency can be exchanged for another." },
-  { title: "Expenditure approach", hl: true, sl: true, def: "A method of calculating GDP by summing all spending on final goods and services: GDP = C + I + G + (X \u2013 M)." },
-  { title: "Expenditure-reducing policies", hl: true, sl: true, def: "Policies that aim to reduce a current account deficit by decreasing income and therefore imports." },
-  { title: "Expenditure-switching policies", hl: true, sl: true, def: "Policies that aim to improve the current account by switching domestic demand from imports toward domestically produced goods, such as devaluation or tariffs." },
-  { title: "Externalities", hl: true, sl: true, def: "Costs or benefits that affect third parties who are not involved in the production or consumption of a good or service." },
-  { title: "Financial account", hl: true, sl: true, def: "A component of the balance of payments that records investment flows, including foreign direct investment, portfolio investment and reserve assets." },
-  { title: "Fiscal policy", hl: true, sl: true, def: "The use of government spending and taxation to influence aggregate demand and macroeconomic objectives." },
-  { title: "Fixed costs", hl: true, sl: true, def: "Costs that do not change with the level of output in the short run, such as rent or salaries." },
-  { title: "Fixed exchange rate", hl: true, sl: true, def: "An exchange rate system where the value of a currency is pegged to another currency or a fixed value." },
-  { title: "Floating exchange rate", hl: true, sl: true, def: "An exchange rate system where the value of a currency is determined by supply and demand in the foreign exchange market." },
-  { title: "Foreign direct investment (FDI)", hl: true, sl: true, def: "Investment by a company in production facilities in a foreign country, involving a lasting interest or management control over an enterprise." },
-  { title: "Free rider problem", hl: true, sl: true, def: "When individuals can enjoy a public good without paying for it, leading to under-provision if left to the market." },
-  { title: "Free trade", hl: true, sl: true, def: "Trade between countries without tariffs, quotas or other trade barriers." },
-  { title: "Free trade area", hl: true, sl: true, def: "A trade bloc where member countries eliminate trade barriers amongst themselves but maintain their own separate external trade policies." },
-  { title: "Frictional unemployment", hl: true, sl: true, def: "Unemployment that occurs when workers are between jobs or searching for a new job that suits their skills." },
-  { title: "Full employment", hl: true, sl: true, def: "A situation where all those willing and able to work at the prevailing wage rate are employed. Some frictional unemployment may still exist." },
-  { title: "Gini coefficient", hl: true, sl: true, def: "A statistical measure of income inequality within a country, ranging from 0 (perfect equality) to 1 (maximum inequality)." },
-  { title: "Government failure", hl: true, sl: true, def: "When government intervention in a market leads to a worse outcome than the market without intervention." },
-  { title: "Gross domestic product (GDP)", hl: true, sl: true, def: "The total monetary value of all final goods and services produced within a country in a given time period." },
-  { title: "Gross national income (GNI)", hl: true, sl: true, def: "The total income earned by a country's residents and businesses regardless of where it is produced, including net income from abroad." },
-  { title: "Hard peg", hl: true, sl: false, def: "A form of fixed exchange rate where a currency is rigidly fixed to another with no room for adjustment, such as a currency board or dollarisation." },
-  { title: "Human Development Index (HDI)", hl: true, sl: true, def: "A composite measure of development combining indicators of health (life expectancy), education (years of schooling), and income (GNI per capita)." },
-  { title: "Hyperinflation", hl: true, sl: true, def: "An extremely high and typically accelerating rate of inflation, often defined as monthly inflation exceeding 50%." },
-  { title: "Income approach", hl: true, sl: true, def: "A method of calculating GDP by summing all incomes earned in production, including wages, profits, rents and interest." },
-  { title: "Income elasticity of demand (YED)", hl: true, sl: true, def: "A measure of the responsiveness of demand for a good to a change in consumer income. YED = % change in Qd / % change in income." },
-  { title: "Indirect taxes", hl: true, sl: true, def: "Taxes levied on the sale of goods and services, such as VAT or excise duties, which can be passed on to consumers." },
-  { title: "Inequality", hl: true, sl: true, def: "The unequal distribution of income or wealth among individuals or groups in a society." },
-  { title: "Inferior good", hl: true, sl: true, def: "A good for which demand falls as consumer income rises (negative income elasticity of demand)." },
-  { title: "Inflation", hl: true, sl: true, def: "A sustained increase in the general price level of goods and services in an economy." },
-  { title: "Inflationary gap", hl: true, sl: true, def: "A situation where actual output exceeds the potential output of the economy, causing inflation." },
-  { title: "Interest rate", hl: true, sl: true, def: "The cost of borrowing money, expressed as a percentage of the amount borrowed per year." },
-  { title: "Investment", hl: true, sl: true, def: "Expenditure by firms on capital goods such as machinery, equipment and buildings." },
-  { title: "J-curve effect", hl: true, sl: true, def: "The pattern where a depreciation initially worsens the current account before eventually improving it, due to time lags in export and import responses." },
-  { title: "Keynesian economics", hl: true, sl: true, def: "An economic theory supporting active government intervention through fiscal policy to stabilise aggregate demand and reduce unemployment." },
-  { title: "Keynesian multiplier", hl: true, sl: true, def: "The ratio of the change in national income to the initial change in spending that caused it. Multiplier = 1 / MPS." },
-  { title: "Labour productivity", hl: true, sl: true, def: "The output produced per worker per unit of time." },
-  { title: "Law of demand", hl: true, sl: true, def: "As the price of a good rises, the quantity demanded falls, ceteris paribus." },
-  { title: "Law of supply", hl: true, sl: true, def: "As the price of a good rises, the quantity supplied increases, ceteris paribus." },
-  { title: "Liquidity trap", hl: true, sl: false, def: "A situation where interest rates are very low and consumers prefer to hold cash rather than invest, making monetary policy ineffective." },
-  { title: "Long-run aggregate supply (LRAS)", hl: true, sl: true, def: "The total output of the economy when all resources are fully employed, represented as a vertical line at potential GDP." },
-  { title: "Lorenz curve", hl: true, sl: true, def: "A graphical representation of income distribution showing the cumulative percentage of income earned by cumulative percentages of the population." },
-  { title: "Luxury good", hl: true, sl: true, def: "A good with an income elasticity of demand greater than 1, meaning demand rises proportionally more than income." },
-  { title: "Macroeconomic objectives", hl: true, sl: true, def: "The main goals of government economic policy, typically including low inflation, low unemployment, economic growth and a stable balance of payments." },
-  { title: "Managed exchange rate", hl: true, sl: true, def: "An exchange rate primarily determined by market forces but with occasional government or central bank intervention." },
-  { title: "Marginal cost", hl: true, sl: true, def: "The additional cost incurred by producing one more unit of output (MC = \u0394TC / \u0394Q)." },
-  { title: "Marginal propensity to consume (MPC)", hl: true, sl: true, def: "The fraction of additional income that is spent on consumption (MPC = \u0394C / \u0394Y)." },
-  { title: "Marginal propensity to import (MPM)", hl: true, sl: true, def: "The fraction of additional income that is spent on imports." },
-  { title: "Marginal propensity to save (MPS)", hl: true, sl: true, def: "The fraction of additional income that is saved (MPS = \u0394S / \u0394Y)." },
-  { title: "Marginal propensity to tax (MPT)", hl: true, sl: true, def: "The fraction of additional income taken in taxation." },
-  { title: "Marginal revenue", hl: true, sl: true, def: "The additional revenue gained from selling one more unit of output (MR = \u0394TR / \u0394Q)." },
-  { title: "Market equilibrium", hl: true, sl: true, def: "The price and quantity at which quantity demanded equals quantity supplied, so there is no tendency for the price to change." },
-  { title: "Market failure", hl: true, sl: true, def: "A situation in which the free market fails to allocate resources efficiently, leading to a misallocation of resources." },
-  { title: "Market power", hl: true, sl: true, def: "The ability of a firm to influence the market price of a good or service." },
-  { title: "Merit good", hl: true, sl: true, def: "A good that has positive externalities and is under-consumed if left to the free market. Governments may subsidise or provide merit goods." },
-  { title: "Microfinance", hl: true, sl: false, def: "The provision of small loans and other financial services to low-income individuals or small businesses that lack access to conventional banking." },
-  { title: "Minimum wage", hl: true, sl: true, def: "A legally set minimum price for labour, set above the equilibrium wage, intended to raise incomes for lower-paid workers." },
-  { title: "Mixed economy", hl: true, sl: true, def: "An economy combining elements of both market and planned economies, with resources allocated by both the market and government." },
-  { title: "Monetary policy", hl: true, sl: true, def: "The use of interest rates and the money supply by the central bank to influence aggregate demand and achieve macroeconomic objectives." },
-  { title: "Monopolistic competition", hl: true, sl: true, def: "A market structure with many firms selling differentiated products. Firms have some market power but there is freedom of entry and exit." },
-  { title: "Monopoly", hl: true, sl: true, def: "A market structure dominated by a single firm that has significant market power and faces no direct competition." },
-  { title: "Monopsony", hl: true, sl: false, def: "A market in which there is only one buyer of a good or service, giving that buyer significant market power over suppliers." },
-  { title: "Multilateral aid", hl: true, sl: true, def: "Aid channelled through international organisations such as the World Bank, IMF or UN agencies." },
-  { title: "Multiplier effect", hl: true, sl: true, def: "The process by which an initial change in spending leads to a larger change in national income through successive rounds of spending." },
-  { title: "Nash equilibrium", hl: true, sl: false, def: "An outcome in a game where no player has an incentive to change their strategy given the strategies of the other players." },
-  { title: "Natural monopoly", hl: true, sl: true, def: "An industry where it is most efficient for one firm to supply the entire market due to very high fixed costs and economies of scale." },
-  { title: "Natural rate of unemployment", hl: true, sl: true, def: "The rate of unemployment that exists when the labour market is in equilibrium, consisting of structural and frictional unemployment." },
-  { title: "Negative externality", hl: true, sl: true, def: "A cost imposed on third parties not involved in a transaction. The social cost exceeds the private cost." },
-  { title: "Net exports", hl: true, sl: true, def: "The value of a country's exports minus its imports (X \u2013 M)." },
-  { title: "Nominal GDP", hl: true, sl: true, def: "The total value of goods and services produced in an economy measured at current prices, unadjusted for inflation." },
-  { title: "Non-price competition", hl: true, sl: true, def: "Competition between firms using methods other than price, such as advertising, product differentiation, or brand loyalty." },
-  { title: "Normal good", hl: true, sl: true, def: "A good for which demand increases as consumer income rises (positive income elasticity of demand)." },
-  { title: "Normal profit", hl: true, sl: true, def: "The minimum level of profit required to keep a firm in the industry in the long run. It occurs when total revenue equals total cost including opportunity cost." },
-  { title: "Official development assistance (ODA)", hl: true, sl: true, def: "Aid from governments to developing countries provided at concessional terms to promote economic development and welfare." },
-  { title: "Oligopoly", hl: true, sl: true, def: "A market structure dominated by a small number of large firms that are interdependent and may collude or compete." },
-  { title: "Opportunity cost", hl: true, sl: true, def: "The value of the next best alternative forgone when a choice is made." },
-  { title: "Output approach", hl: true, sl: true, def: "A method of calculating GDP by summing the value added by all industries in the economy." },
-  { title: "Overvalued currency", hl: true, sl: true, def: "When a currency's exchange rate is set above its equilibrium value, making exports more expensive and imports cheaper." },
-  { title: "Perfect competition", hl: true, sl: true, def: "A market structure characterised by many buyers and sellers, homogeneous products, freedom of entry and exit, and perfect information." },
-  { title: "Phillips curve", hl: true, sl: true, def: "A relationship showing the short-run trade-off between inflation and unemployment: as unemployment falls, inflation tends to rise." },
-  { title: "Positive externality", hl: true, sl: true, def: "A benefit received by third parties not involved in a transaction. The social benefit exceeds the private benefit." },
-  { title: "Potential output", hl: true, sl: true, def: "The maximum level of real output an economy can produce when all resources are fully and efficiently employed." },
-  { title: "Price ceiling", hl: true, sl: true, def: "A maximum price set by the government below the equilibrium price, leading to excess demand (shortage)." },
-  { title: "Price discrimination", hl: true, sl: true, def: "When a firm charges different prices to different consumers for the same product, based on their willingness to pay." },
-  { title: "Price elasticity of demand (PED)", hl: true, sl: true, def: "A measure of the responsiveness of quantity demanded to a change in price. PED = % change in Qd / % change in price." },
-  { title: "Price elasticity of supply (PES)", hl: true, sl: true, def: "A measure of the responsiveness of quantity supplied to a change in price. PES = % change in Qs / % change in price." },
-  { title: "Price floor", hl: true, sl: true, def: "A minimum price set by the government above the equilibrium price, leading to excess supply (surplus)." },
-  { title: "Price leadership", hl: true, sl: false, def: "A form of tacit collusion in an oligopoly where one dominant firm sets the price and others follow." },
-  { title: "Price maker", hl: true, sl: true, def: "A firm with sufficient market power to set its own price, rather than being forced to accept the market price." },
-  { title: "Price taker", hl: true, sl: true, def: "A firm that must accept the market price as determined by supply and demand. In perfect competition, all firms are price takers." },
-  { title: "Privatisation", hl: true, sl: true, def: "The transfer of ownership of a business, industry or service from the public sector to the private sector." },
-  { title: "Producer surplus", hl: true, sl: true, def: "The difference between the price producers receive and the minimum price they would accept. It is the area above the supply curve and below the market price." },
-  { title: "Production possibility curve (PPC)", hl: true, sl: true, def: "A graph showing the maximum combinations of two goods that can be produced in an economy given its resources and technology." },
-  { title: "Progressive tax", hl: true, sl: true, def: "A tax where the rate increases as taxable income increases, taking a higher percentage from higher earners." },
-  { title: "Protectionism", hl: true, sl: true, def: "Government policies that restrict international trade to protect domestic industries from foreign competition." },
-  { title: "Public good", hl: true, sl: true, def: "A good that is non-excludable and non-rival in consumption, such as national defence or street lighting." },
-  { title: "Quantitative easing (QE)", hl: true, sl: false, def: "An unconventional monetary policy where the central bank creates new money to purchase financial assets, increasing the money supply to stimulate the economy." },
-  { title: "Quota", hl: true, sl: true, def: "A limit on the quantity of a good that can be imported into a country." },
-  { title: "Real GDP", hl: true, sl: true, def: "GDP adjusted for inflation, allowing comparisons of output over time at constant prices." },
-  { title: "Real GDP per capita", hl: true, sl: true, def: "Real GDP divided by the total population, used as a measure of average living standards." },
-  { title: "Recession", hl: true, sl: true, def: "A period of negative economic growth, typically defined as two consecutive quarters of falling real GDP." },
-  { title: "Recessionary gap", hl: true, sl: true, def: "A situation where actual output is below the potential output of the economy, resulting in unemployment." },
-  { title: "Redistribution of income", hl: true, sl: true, def: "Policies that transfer income from wealthier to poorer individuals, such as progressive taxation and welfare payments." },
-  { title: "Regressive tax", hl: true, sl: true, def: "A tax where the burden falls more heavily on lower-income individuals as a proportion of their income." },
-  { title: "Relative poverty", hl: true, sl: true, def: "A measure of poverty relative to living standards in wider society, typically defined as income below a certain percentage of median income." },
-  { title: "Remittances", hl: true, sl: true, def: "Money sent by migrant workers back to their home countries." },
-  { title: "Revenue", hl: true, sl: true, def: "Total income received by a firm from the sale of its output (TR = P \u00d7 Q)." },
-  { title: "Short-run aggregate supply (SRAS)", hl: true, sl: true, def: "The total output that firms in an economy are willing and able to produce at each price level in the short run." },
-  { title: "Soft peg", hl: true, sl: false, def: "A form of managed exchange rate where a currency is fixed to another within a band, with some flexibility for adjustment." },
-  { title: "Stagflation", hl: true, sl: true, def: "A situation where high inflation and high unemployment occur simultaneously, often with slow economic growth." },
-  { title: "Structural adjustment programmes (SAPs)", hl: true, sl: false, def: "Economic reform packages required by the IMF and World Bank in exchange for loans to developing countries, typically involving free market reforms." },
-  { title: "Structural unemployment", hl: true, sl: true, def: "Unemployment caused by a mismatch between the skills of workers and the skills required by employers, often resulting from technological change." },
-  { title: "Subsidy", hl: true, sl: true, def: "A payment by the government to producers to lower their costs of production and encourage greater output." },
-  { title: "Substitute goods", hl: true, sl: true, def: "Goods that can be used in place of each other. An increase in the price of one leads to an increase in demand for the substitute." },
-  { title: "Supply-side policies", hl: true, sl: true, def: "Government policies that aim to increase the productive capacity of the economy by improving the efficiency or quantity of factors of production." },
-  { title: "Sustainable development", hl: true, sl: true, def: "Development that meets the needs of the present without compromising the ability of future generations to meet their own needs." },
-  { title: "Tariff", hl: true, sl: true, def: "A tax on imported goods, intended to raise their price and protect domestic producers from foreign competition." },
-  { title: "Terms of trade", hl: true, sl: true, def: "The ratio of a country's export prices to its import prices. ToT = (Index of export prices / Index of import prices) \u00d7 100." },
-  { title: "Total cost", hl: true, sl: true, def: "The sum of all fixed and variable costs at a given level of output (TC = TFC + TVC)." },
-  { title: "Total revenue", hl: true, sl: true, def: "The total income received by a firm from selling its output (TR = P \u00d7 Q)." },
-  { title: "Trade creation", hl: true, sl: true, def: "A benefit of joining a customs union where trade shifts from a high-cost domestic producer to a lower-cost member country producer." },
-  { title: "Trade diversion", hl: true, sl: true, def: "A cost of joining a customs union where trade shifts away from a low-cost non-member to a higher-cost member due to the common external tariff." },
-  { title: "Trade liberalisation", hl: true, sl: true, def: "The reduction or elimination of trade barriers to encourage free trade between countries." },
-  { title: "Transfer payments", hl: true, sl: true, def: "Payments made by the government to individuals for which no good or service is provided in return, such as welfare benefits or pensions." },
-  { title: "Undervalued currency", hl: true, sl: true, def: "When a currency's exchange rate is set below its equilibrium value, making exports cheaper and imports more expensive." },
-  { title: "Unemployment", hl: true, sl: true, def: "A situation where individuals who are actively seeking work at the prevailing wage rate are unable to find employment." },
-  { title: "Unemployment rate", hl: true, sl: true, def: "The percentage of the labour force that is unemployed and actively seeking work." },
-  { title: "Value added", hl: true, sl: true, def: "The difference between the value of a firm's output and the cost of its intermediate inputs." },
-  { title: "Variable costs", hl: true, sl: true, def: "Costs that change with the level of output, such as raw materials and direct labour." },
-  { title: "Welfare payments", hl: true, sl: true, def: "Government transfer payments to individuals to support their standard of living, such as unemployment benefits or housing support." },
-  { title: "World Trade Organization (WTO)", hl: true, sl: true, def: "An international organisation that sets and enforces rules for international trade, aiming to reduce trade barriers and resolve disputes." },
-  { title: "X-inefficiency", hl: true, sl: false, def: "When a firm fails to minimise costs due to a lack of competitive pressure, resulting in productive inefficiency." }
+  { title: "Abnormal profit", def: "When a firm's average revenue is greater than its average costs." },
+  { title: "Absolute Advantage", def: "The ability to produce the same quantity of a good or service using fewer resources per unit of time." },
+  { title: "Absolute poverty", def: "The inability to afford the basic goods and services required to meet essential needs, when measured in relation to a fixed poverty line that indicates the minimum income required to cover basic necessities." },
+  { title: "Administrative Barriers", def: "Bureaucratic rules and regulations imposed by governments to restrict imports and protect domestic industries." },
+  { title: "Adverse selection", def: "When one of the sides has more knowledge about the quality of the product sold than the other." },
+  { title: "Aggregate demand", def: "The total quantity of real output that all buyers in an economy (consumers, businesses, the government, and foreigners) are willing to purchase over a specific time period, at all possible price levels, ceteris paribus." },
+  { title: "Aggregate supply", def: "The total output produced in an economy at all possible price levels, over a specific time period, ceteris paribus." },
+  { title: "Allocative Efficiency", def: "State of the economy in which the combination and quantity of goods and services produced is aligned with the preferences of consumers and producers, maximising social surplus." },
+  { title: "Appreciation", def: "An increase in the value of a currency." },
+  { title: "Asymmetric Information", def: "Refers to a situation where buyers and sellers don't have the same access to information." },
+  { title: "Automatic Stabilizers", def: "Factors without government interaction which automatically reduce the short-term business cycle fluctuations." },
+  { title: "Average tax rate", def: "The average total proportion of income paid as tax." },
+  { title: "Balance of Payments", def: "A statement or record of a country's economic transactions with all other countries over a specific time period (often a year)." },
+  { title: "Behavioural economics", def: "A field of economics founded on the notion that human behaviour is significantly more complex than the traditional assumptions of rational consumer choice." },
+  { title: "Bond", def: "A signed certificate representing a loan given by the bond holder to the borrower in exchange for regular interest payments and the promise to repay the full amount at a set future date." },
+  { title: "Business cycle", def: "Fluctuations in the growth of real output, characterised by alternating phases of expansion (rising real output) and contraction (falling real output)." },
+  { title: "Capital", def: "Human-made factors of production used to produce goods and services." },
+  { title: "Capital Account", def: "The sum of the balance of capital transfers and transactions in non-produced, non-financial assets." },
+  { title: "Capital flight", def: "The large-scale and rapid movement of financial assets or capital from a country to foreign markets, often due to economic instability, political uncertainty, or fear of currency depreciation." },
+  { title: "Carbon Tax", def: "A tax which is imposed per unit of carbon emitted." },
+  { title: "Ceteris paribus", def: "A Latin expression indicating all other variables besides those being considered are assumed to be unchanging." },
+  { title: "Choice Architecture", def: "The way in which options are showcased to decision-makers, with emphasis on the design and environment to influence decisions." },
+  { title: "Circular flow of income", def: "An income flow in an economy where the value of the output produced is equivalent to the total income earned from its production, which is also equivalent to the expenditures spent on purchasing that output." },
+  { title: "Collective self-governance", def: "The situation where common pool resources are given to the control of individuals for them to manage sustainably." },
+  { title: "Common Markets", def: "A form of trading bloc that builds on a customs union by allowing the free movement of goods, services, and factors of production among member countries." },
+  { title: "Common Pool Resources", def: "Natural resources which are available for use by everyone, but are susceptible to overuse and depletion." },
+  { title: "Comparative Advantage", def: "A country having lower opportunity costs in the production of a good compared to another country." },
+  { title: "Complementary goods", def: "Goods that tend to be used together." },
+  { title: "Composite Indicator", def: "A single measure that combines multiple individual indicators into one index to provide an overall assessment." },
+  { title: "Concentration Ratio", def: "Measures the market share controlled by the larger firms in the market." },
+  { title: "Consumer Price Index (CPI)", def: "A measure of the cost of living carried out by comparing the value of a basket of goods and services in a given year to a base year." },
+  { title: "Consumer surplus", def: "The difference between the highest price consumers are willing and able to pay for a good or service and the actual price they end up paying." },
+  { title: "Contractionary Fiscal Policy", def: "Fiscal policy aimed at reducing aggregate demand by decreasing government spending or increasing taxes." },
+  { title: "Cost-push inflation", def: "A type of inflation caused by rising production costs, such as higher wages or input prices, which reduce aggregate supply and push the price level up." },
+  { title: "Credit Rating", def: "Determined by international agencies, ranking countries by how probable they are to repay their loans completely and on time." },
+  { title: "Current Account", def: "The sum of the balance of trade in goods and services, income and current transfers." },
+  { title: "Customs Union", def: "A type of trading bloc that meets all the criteria of a free trade area but also adopts a common policy towards non-member countries." },
+  { title: "Cyclical unemployment", def: "Unemployment that occurs during economic downturns when demand for goods and services falls, leading to job losses." },
+  { title: "Debt relief", def: "Partial or total cancellation, restructuring, or reduction of a country's debt obligations to help alleviate financial burdens and support economic recovery." },
+  { title: "Deflation", def: "A sustained decrease in the general price level of goods and services in an economy over time, typically indicated by a negative inflation rate." },
+  { title: "Demand", def: "Various quantities of a good or service that consumers are willing and able to buy at different possible prices during a particular time period, ceteris paribus." },
+  { title: "Demand-pull inflation", def: "A type of inflation caused by an increase in aggregate demand that exceeds aggregate supply at the full employment level." },
+  { title: "Demerit Good", def: "Goods that are not socially desirable but are over-provided by the market." },
+  { title: "Depreciation", def: "A decrease in the value of a currency." },
+  { title: "Direct provision of services", def: "When the government directly delivers goods or services to the public." },
+  { title: "Direct tax", def: "Tax paid to the government directly by the taxpayer." },
+  { title: "Disinflation", def: "A slowdown in the rate of inflation, meaning prices are still rising but at a slower pace compared to previous periods." },
+  { title: "Diversification", def: "The process of expanding the range of products, services, or markets to reduce risk and enhance economic stability." },
+  { title: "Dumping", def: "The sale of goods and services in international markets at a price lower than the cost of production." },
+  { title: "Economic development", def: "The process of increasing real per capita income while improving living standards and reducing poverty within an economy as a whole." },
+  { title: "Economic Diversification", def: "Shift of the economy from fewer to a larger number of income sources." },
+  { title: "Economic growth", def: "An increase in a country's real output (real GDP) over a period of time." },
+  { title: "Economic inequality", def: "The degree of differences between an economy's individuals in their ability to satisfy their needs and wants due to monetary constraints." },
+  { title: "Economic Integration", def: "Cooperation and coordination between countries and their economic policies, to make them more economically interconnected." },
+  { title: "Economics", def: "The study of choices leading to the best possible use of scarce resources in order to best satisfy unlimited human needs and wants." },
+  { title: "Economies of scale", def: "Reductions in average production costs that arise when a firm increases its output by scaling up all its inputs in the long run." },
+  { title: "Efficiency", def: "Using scarce resources in the best possible way to avoid welfare loss." },
+  { title: "Entrepreneurship", def: "The unique human skills held by some individuals, including the ability to innovate, take business risks, and pursue new opportunities for running a business." },
+  { title: "Equity", def: "The condition of being fair and just in resource distribution." },
+  { title: "Exchange Rate", def: "The value of one currency in terms of another currency." },
+  { title: "Expansionary Fiscal Policy", def: "Fiscal policy aimed at increasing aggregate demand by increasing government spending and/or reducing taxes." },
+  { title: "Expenditure reducing policies", def: "Policies that aim to reduce overall spending in the economy, including spending on imports." },
+  { title: "Expenditure switching policies", def: "Policies that aim to switch spending from imports to domestic goods and services." },
+  { title: "Externality", def: "The spillover effects on third parties due to actions of consumers or producers." },
+  { title: "Factors of production", def: "All resources or inputs used to produce goods and services." },
+  { title: "Financial Account", def: "The sum of foreign direct investment (FDI), portfolio investment, reserve assets and official borrowing." },
+  { title: "Fiscal Policy", def: "The use of government spending and taxation to influence aggregate demand." },
+  { title: "Fixed Exchange Rate", def: "A system where the central bank maintains the currency's value at a predetermined level rather than letting market forces decide it." },
+  { title: "Floating Exchange Rate", def: "A system in which the value of a currency is determined by supply and demand, without government intervention." },
+  { title: "Foreign aid", def: "Provision of financial assistance, goods, and services to developing countries, with the primary purpose of improving their economic, social, and political conditions." },
+  { title: "Foreign Direct Investment", def: "An investment by a foreigner into another country, where the investor buys at least 10% of a business." },
+  { title: "Free Trade", def: "An absence of government intervention in international trade, resulting in no restrictions on imports and exports." },
+  { title: "Free Trade Area", def: "A group of countries that agree to gradually remove trade restrictions among themselves." },
+  { title: "Frictional unemployment", def: "Unemployment that occurs when people are temporarily between jobs or entering the workforce for the first time." },
+  { title: "Gini coefficient", def: "A numerical measure of income or wealth inequality on an index from 0 (perfect equality) to 1 (perfect inequality)." },
+  { title: "Government intervention", def: "When a government alters the resource allocation that markets would have achieved working freely on their own." },
+  { title: "Gross Domestic Product (GDP)", def: "The market value of all final goods and services produced in an economy over a period of time (usually a year)." },
+  { title: "Gross National Income (GNI)", def: "The total income earned by an economy's residents over a specific time period, equal to the market value of all final goods and services produced by the factors of production supplied by the economy's residents." },
+  { title: "Human capital", def: "Skills, abilities, good health, and knowledge utilized by people to increase their productivity." },
+  { title: "Humanitarian aid", def: "Provision of resources and emergency assistance to people affected by natural disasters, conflicts, or crises, with the immediate aim of saving lives and alleviating suffering." },
+  { title: "Income Elasticity of Demand", def: "A measure of the responsiveness of demand to changes in income." },
+  { title: "Indirect taxes", def: "Taxes imposed on goods and services, paid to the government by sellers but ultimately borne by consumers." },
+  { title: "Inequality of opportunities", def: "Differences in life opportunities due to factors beyond an individual's control." },
+  { title: "Infant Industry", def: "A new domestic industry that has not had the time to achieve production efficiencies and establish itself yet." },
+  { title: "Inferior goods", def: "A good whose demand decreases as consumer income increases." },
+  { title: "Inflation Targeting", def: "A strategy where central banks set a specific inflation rate as their primary goal and adjust monetary policies to meet it." },
+  { title: "Inflationary gap", def: "A situation where the actual real output of an economy is above its full-employment level, resulting in unemployment being lower than the natural rate." },
+  { title: "Informal economy", def: "Part of the economy that lies outside the formal economy, involving economic activities that are unregistered and legally unregulated." },
+  { title: "Injections", def: "The addition of funds into the income flow through investment, government spending, or exports." },
+  { title: "Institutions", def: "The formal and informal rules, laws, and systems that structure economic, political, and social interactions, influencing decision-making and resource allocation." },
+  { title: "Interdependence", def: "The concept that economic decision-makers rely on and interact with one another, because no one can be entirely self-sufficient." },
+  { title: "Interest rates", def: "The proportion of the amount of money borrowed charged as interest, expressed as a percentage." },
+  { title: "International Trade", def: "The exchange of goods and services between two or more countries." },
+  { title: "Keynesian Multiplier", def: "The proportional increase in real GDP that results from an initial injection into the economy." },
+  { title: "Labour", def: "All the physical work and mental skills that humans put into the production of goods and services." },
+  { title: "Land", def: "All natural resources on Earth, including farmland and non-farmland." },
+  { title: "Law of Diminishing Marginal Returns", def: "As additional units of a variable input are added to fixed inputs, the marginal product increases by less and less each time, eventually decreasing." },
+  { title: "Law of Diminishing Marginal Utility", def: "As more of a good is consumed, the additional satisfaction gained from each extra unit decreases." },
+  { title: "Law of Supply", def: "There is a direct, positive relationship between price and quantity supplied." },
+  { title: "Leakages", def: "The removal of funds from the income flow, represented by savings, taxes, or imports." },
+  { title: "Lorenz curve", def: "A graphical representation of income inequality within an economy." },
+  { title: "Macroeconomic equilibrium", def: "The point where aggregate demand intersects aggregate supply, establishing the price level and real output of an economy." },
+  { title: "Macroeconomic objectives", def: "Key goals of governments in achieving economic stability: sustainable growth, low inflation, low unemployment, balanced trade, and income equality." },
+  { title: "Macroeconomics", def: "The branch of economics that analyzes the economy as a whole by using aggregates." },
+  { title: "Managed Exchange Rate", def: "A system where the exchange rate is mainly determined by market forces, but the central bank occasionally intervenes to keep it close to a desired level." },
+  { title: "Marginal Benefit", def: "The benefit gained from consuming an additional unit of a good or service." },
+  { title: "Marginal Cost", def: "The cost of producing an additional unit of output." },
+  { title: "Marginal tax rate", def: "The percentage of tax paid on the next dollar earned." },
+  { title: "Marginal utility", def: "The satisfaction obtained from consuming one more unit of a good or service." },
+  { title: "Market", def: "Any arrangement that connects buyers and sellers, enabling them to carry out an exchange." },
+  { title: "Market Equilibrium", def: "When quantity demanded is equal to quantity supplied, and there is no tendency for the price to change." },
+  { title: "Market Failure", def: "Occurs when markets fail to efficiently allocate resources within an economy." },
+  { title: "Market power", def: "The degree to which a firm in a market is able to control its output price." },
+  { title: "Marshall-Lerner Condition", def: "A condition which determines whether a depreciation or devaluation of a currency will improve a current account deficit." },
+  { title: "Merit Good", def: "Goods that are desirable by society but are under-provided by the market." },
+  { title: "Microeconomics", def: "The branch of economics that studies the behaviour of consumers and firms in making decisions regarding resource allocation." },
+  { title: "Monetary Policy", def: "Adjustments of interest rates and the availability of money in the economy set by the central bank." },
+  { title: "Monetary Union", def: "A common market between countries who also share a common currency and a common central bank." },
+  { title: "Money Multiplier", def: "A concept that quantifies the total amount of money created in the economy from an initial deposit." },
+  { title: "Monopoly", def: "A market structure with one single dominant firm that has substantial control over output prices, selling a unique product protected by high barriers to entry." },
+  { title: "Moral Hazard", def: "A situation where one party takes a risk but is not responsible for covering all of the costs because they are covered by the other party." },
+  { title: "Multilateral development assistance", def: "A form of international aid where multiple countries or international organizations work together to provide support to developing nations." },
+  { title: "Multinational Corporation", def: "A firm that undertakes foreign direct investment (FDI)." },
+  { title: "Nash Equilibrium", def: "A situation where none of the players can improve their position by making another choice." },
+  { title: "National income", def: "The total income of an economy, composed of the sum of wages, interest, rent and profit." },
+  { title: "Natural monopoly", def: "A single firm that can produce for the entire market at a lower average cost than if the market was shared by multiple smaller firms." },
+  { title: "Natural rate of unemployment", def: "The level of unemployment that persists even when the economy is at full employment, consisting of structural, frictional, and seasonal unemployment." },
+  { title: "Necessities", def: "Goods or services crucial for one's life and extremely difficult to live without." },
+  { title: "Negative Production Externality", def: "Spillover costs passed on to third parties from the production of a good, which are not reflected in the market price." },
+  { title: "Normal goods", def: "A good whose demand increases as consumer income increases." },
+  { title: "Normal profit", def: "When a firm's total revenue exactly covers total costs. The minimum level of profit needed to remain in the market long-term." },
+  { title: "Nudge", def: "A method used to influence the decision of a consumer in a desirable way, without financial incentives or legal regulations." },
+  { title: "Oligopoly", def: "A market structure dominated by a few large firms." },
+  { title: "Opportunity cost", def: "The value of the next best option that must be forgone in order to acquire something else." },
+  { title: "Overvalued Currency", def: "Where the value of a currency is kept higher than its equilibrium level by government or central bank intervention." },
+  { title: "Perfect competition", def: "A market structure with a large number of small firms that have no control over output prices. All firms sell an undifferentiated product and there are no barriers to entry." },
+  { title: "Pigouvian taxes", def: "A form of tax imposed on activities that generate negative externalities." },
+  { title: "Portfolio Investment", def: "A financial investment by a foreigner, such as the purchase of stocks." },
+  { title: "Positive Consumption Externality", def: "Occurs when the consumption of a good or service leaves positive spillover effects on third parties." },
+  { title: "Positive Production Externality", def: "When the production of a good or service has positive spillover effects on third parties." },
+  { title: "Poverty", def: "The inability to meet standard consumption needs. These standards can be absolute or relative." },
+  { title: "Poverty cycle", def: "A self-reinforcing cycle where low income leads to limited access to resources, preventing individuals or communities from improving their economic situation." },
+  { title: "Price ceiling", def: "A maximum price, below the equilibrium price, set by the government for a particular good or service." },
+  { title: "Price controls", def: "The setting of a maximum or minimum price above or below the equilibrium price by the government." },
+  { title: "Price Elasticity of Demand (PED)", def: "A measure of the responsiveness of quantity demanded when there is a price change." },
+  { title: "Price Elasticity of Supply", def: "A measure of the responsiveness of quantity supplied when there is a change in price." },
+  { title: "Price floor", def: "A minimum price set by the government for a good, above the equilibrium price." },
+  { title: "Primary Commodities", def: "Goods and services that directly come from natural resources or the factor of production called land." },
+  { title: "Producer surplus", def: "The difference between the price sellers receive and the lowest price they are willing and able to accept." },
+  { title: "Production possibilities curve (PPC)", def: "A curve that illustrates all possible combinations of two goods that an economy can produce at maximum output using all available resources and current technology efficiently." },
+  { title: "Profit", def: "The money left for a firm after total costs have been subtracted from total revenue." },
+  { title: "Public Good", def: "A good that is both non-rivalrous and non-excludable at the same time." },
+  { title: "Purchasing Power Parity (PPP)", def: "Special exchange rates designed to equal the purchasing power of different currencies to that of 1 US dollar." },
+  { title: "Quantitative Easing", def: "A monetary policy where the central bank purchases financial assets from the market to increase the money supply." },
+  { title: "Quota", def: "A limit on the quantity of a certain good that can be imported over a particular period of time." },
+  { title: "Rational consumer choice", def: "Economic theory where consumers make choices in their best self-interest trying to maximize utility." },
+  { title: "Recession", def: "Sustained falling real output in an economy (a contraction in the business cycle) lasting two consecutive quarters (6 months)." },
+  { title: "Recessionary gap", def: "When the actual real output of an economy is below its full-employment level, resulting in unemployment being higher than the natural rate." },
+  { title: "Regulation", def: "Establishment of requirements and standards to regulate behaviour." },
+  { title: "Relative poverty", def: "The inability to afford the standard of goods and services considered typical in their society." },
+  { title: "Remittance", def: "Money sent from abroad by family members or friends." },
+  { title: "Resource allocation", def: "Assigning available resources or factors of production to particular uses selected from various possible options." },
+  { title: "Revenue", def: "The money earned by a firm from selling goods and services over a period of time." },
+  { title: "Scarcity", def: "The idea that available resources are limited and unable to satisfy unlimited human needs and wants." },
+  { title: "Seasonal unemployment", def: "Unemployment that arises when jobs are only available during certain times of the year." },
+  { title: "Short-run aggregate supply (SRAS)", def: "The total output produced in an economy at all possible price levels, when the costs of factors of production are fixed, ceteris paribus." },
+  { title: "Shortage", def: "The excess of quantity demanded over quantity supplied." },
+  { title: "Social surplus", def: "The sum of consumer surplus and producer surplus, maximised in the free market at equilibrium." },
+  { title: "Structural unemployment", def: "Unemployment that happens when there is a mismatch between workers' skills and available jobs." },
+  { title: "Subsidy", def: "Monetary help offered by the government to firms (sometimes households) to aid in lowering costs of production." },
+  { title: "Substitute goods", def: "Goods that satisfy a similar need." },
+  { title: "Supply", def: "The quantity of a good or service a firm is willing and able to produce for a given price in a given time period, ceteris paribus." },
+  { title: "Supply-side policies", def: "Government policies aimed at increasing the productive capacity of the economy and improving market efficiency." },
+  { title: "Surplus", def: "The extra supply that results when quantity supplied is greater than quantity demanded." },
+  { title: "Sustainable Development", def: "The ability of the current generation to meet their needs without compromising the ability of future generations to meet theirs." },
+  { title: "Tariffs", def: "Taxes imposed on imported goods, also known as customs duties." },
+  { title: "Taxes", def: "Mandatory payments made by households and firms, collected by governments." },
+  { title: "The Free Rider Problem", def: "When a person enjoys the benefit of a good or service without paying for it." },
+  { title: "The Law of Demand", def: "As the price of a good increases, the quantity demanded decreases, ceteris paribus." },
+  { title: "The Tragedy of Commons", def: "A situation where individuals, acting in their own self-interest, overuse and degrade a shared resource, causing long-term harm." },
+  { title: "Total Revenue", def: "Amount of money received by firms when they sell a good or service." },
+  { title: "Tradable Permits", def: "A legal cap set by the government limiting the amount of emissions that can be emitted. Each firm is provided a set of permits which can be exchanged with other firms." },
+  { title: "Trade Creation", def: "A scenario where lower cost imports replace higher cost imports or domestic production." },
+  { title: "Trade Diversion", def: "A scenario where higher cost imports from a member country replace lower cost imports due to the formation of a trading bloc." },
+  { title: "Trade Liberalization", def: "Freeing up international trade by removing trade barriers." },
+  { title: "Trade Protection", def: "When the government intervenes in international trade by imposing restrictions to reduce free imports." },
+  { title: "Trading Bloc", def: "A group of countries encouraging free trade and economic integration through the reduction of trade barriers between them." },
+  { title: "Transfer payments", def: "Redistributions of income by the government to individuals or households without any exchange of goods or services." },
+  { title: "Undervalued Currency", def: "A situation where the currency's value is kept lower than its equilibrium level, making exports cheaper and imports more expensive." },
+  { title: "Unemployment", def: "When people of working age who are actively seeking and able to work are not employed." },
+  { title: "Unemployment Rate", def: "The number of unemployed people expressed as a percentage of the labor force." },
+  { title: "Universal Basic Income", def: "A policy where the government provides a fixed amount of money to every citizen, regardless of their income or employment status." },
+  { title: "Utility", def: "The satisfaction that a consumer receives by consuming a good or service." },
+  { title: "Wealth", def: "The total value of someone's owned assets (savings, stocks, bonds, land, properties) minus their debts." },
+  { title: "Wealth Inequality", def: "The unequal levels of wealth that individuals own." },
+  { title: "Welfare loss", def: "The reduction in social surplus that occurs when marginal social benefits are not equal to marginal social costs, typically as a result of market failure." },
+  { title: "World Trade Organisation (WTO)", def: "International organisation in charge of regulating and facilitating international trade." }
 ];
 
 const bioTerms = [
@@ -651,18 +734,27 @@ const bioTerms = [
   { title: "Zygote", def: "A eukaryotic cell formed by the fusion of two gametes." }
 ];
 
-const econSuggestions = ["Phillips Curve","Externalities","PED","Monopoly","Inflation","Subsidy","Nash Equilibrium","Lorenz Curve","Gini Coefficient"];
-const bioSuggestions = ["Photosynthesis","Mitosis","DNA Replication","Natural selection","Osmosis","ATP","Homeostasis","Evolution","Meiosis"];
+const econSuggestions = ["Scarcity", "Market Failure", "Externality", "Monopoly", "Inflation", "Subsidy", "Tariff", "GDP", "Opportunity cost"];
+const bioSuggestions = ["Photosynthesis", "Mitosis", "DNA Replication", "Natural selection", "Osmosis", "ATP", "Homeostasis", "Evolution", "Meiosis"];
 
-function renderChips(suggestions, containerId, searchId) {
+function renderChips(suggestions, containerId, inputId) {
   const c = document.getElementById(containerId);
+  const isEcon = containerId === 'econChips';
   c.innerHTML = suggestions.map(s =>
-    `<button class="chip" onclick="document.getElementById('${searchId}').value='${s}';doSearch('${searchId}','${containerId.replace('Chips','Cards')}','${containerId.replace('Chips','Meta')}',${containerId.startsWith('econ') ? 'econTerms' : 'bioTerms'},true)">${s}</button>`
+    `<button class="chip" onclick="setSearch('${inputId}','${isEcon?'econ':'bio'}','${s}')">${s}</button>`
   ).join('');
 }
 
-function doSearch(inputId, cardsId, metaId, terms, isBio) {
+function setSearch(inputId, subject, value) {
+  document.getElementById(inputId).value = value;
+  doSearch(inputId, subject);
+}
+
+function doSearch(inputId, subject) {
   const q = document.getElementById(inputId).value.trim();
+  const cardsId = subject + 'Cards';
+  const metaId = subject + 'Meta';
+  const terms = subject === 'econ' ? econTerms : bioTerms;
   const cards = document.getElementById(cardsId);
   const meta = document.getElementById(metaId);
   if (!q) { cards.innerHTML = ''; meta.textContent = ''; return; }
@@ -670,17 +762,16 @@ function doSearch(inputId, cardsId, metaId, terms, isBio) {
   const results = terms.filter(t => t.title.toLowerCase().includes(lower) || t.def.toLowerCase().includes(lower));
   meta.textContent = `${results.length} result${results.length !== 1 ? 's' : ''} for "${q}"`;
   if (!results.length) { cards.innerHTML = `<div class="empty">No terms found for "<strong>${q}</strong>"</div>`; return; }
-  cards.innerHTML = results.map(t => {
-    const badges = isBio ? '' : `<div class="badges">${t.hl ? '<span class="badge badge-hl">HL</span>' : ''}${t.sl ? '<span class="badge badge-sl">SL</span>' : ''}</div>`;
-    return `<div class="card"><div class="card-header"><div class="card-title">${t.title}</div>${badges}</div><div class="card-def">${t.def}</div></div>`;
-  }).join('');
+  cards.innerHTML = results.map(t =>
+    `<div class="card"><div class="card-title">${t.title}</div><div class="card-def">${t.def}</div></div>`
+  ).join('');
 }
 
 renderChips(econSuggestions, 'econChips', 'econSearch');
 renderChips(bioSuggestions, 'bioChips', 'bioSearch');
 
-document.getElementById('econSearch').addEventListener('input', e => doSearch('econSearch','econCards','econMeta',econTerms,false));
-document.getElementById('bioSearch').addEventListener('input', e => doSearch('bioSearch','bioCards','bioMeta',bioTerms,true));
+document.getElementById('econSearch').addEventListener('input', () => doSearch('econSearch', 'econ'));
+document.getElementById('bioSearch').addEventListener('input', () => doSearch('bioSearch', 'bio'));
 
 document.querySelectorAll('.tab:not(.soon)').forEach(tab => {
   tab.addEventListener('click', () => {
@@ -688,7 +779,7 @@ document.querySelectorAll('.tab:not(.soon)').forEach(tab => {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     tab.classList.add('active');
     const panel = document.getElementById('tab-' + tab.dataset.tab) || document.getElementById('tab-soon');
-    panel.classList.add('active');
+    if (panel) panel.classList.add('active');
   });
 });
 </script>
